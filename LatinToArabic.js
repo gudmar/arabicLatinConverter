@@ -12,12 +12,12 @@ const SMALLEST_VALUE = -1;
 
 export function latinToArabic(latin) {
     const tokens = latin.split('');
-    let output = 0;
-    tokens.forEach((token, index) => {
+    const output = tokens.reduce((result, token, index) => {
         const nextToken = index + 1 > tokens.length ? null : tokens[index + 1];
         const nextTokenValue = tokensMapping[nextToken] || SMALLEST_VALUE;
         const currentTokenValue = tokensMapping[token];
-        output += nextTokenValue > currentTokenValue ? -currentTokenValue : currentTokenValue;
-    })
+        result += nextTokenValue > currentTokenValue ? -currentTokenValue : currentTokenValue;
+        return result;
+    }, 0);
     return output;
 }
